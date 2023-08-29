@@ -12,9 +12,6 @@ const heights = Dimensions.get('window').height;
 let today  = new Date();
 
 export default function Calendar() {
-
-
-
     const [check,SetCheck] = useState(false);
     const [title,SetTitle] = useState('');
     const [desc,SetDesc] = useState('');
@@ -42,24 +39,25 @@ export default function Calendar() {
         flex: 1, 
         alignItems:'center',
         paddingTop: heights * 0.08,
-        backgroundColor:"white",
+        backgroundColor:'#000'
 
       }}>
   
-  <Image source={backCalPng} style={{
+  {/* <Image source={backCalPng} style={{
           width:widths,
           height:heights,
           position:'absolute',
           
-        }}/>
+        }}/> */}
         
           <Text
             style={{
               textAlign:'center',
               fontSize:35,
               fontWeight:'bold',
-              marginBottom:heights*0.04,
-              color:'white'
+              marginBottom:heights*0.02,
+              color:'white',
+
   
             }}
           >{today.getMonth()+1}월</Text>
@@ -84,16 +82,17 @@ export default function Calendar() {
                   width:(widths - widths * 0.05 ) / 5.5,
                   height:widths / 5.5,
                   padding:widths * 0.015,
-                  borderColor: i+1 == today.getDate() ? '#007CC7': '#00516D',
+                  borderColor: i+1 == today.getDate() ? 'gold': 'white',
                   borderCollapse:'collapse',
-                  borderTopColor:i+1 == today.getDate() ? "#007CC7" : "#00516D",
+                  borderTopColor:i+1 == today.getDate() ? "gold" : "white",
                   borderTopWidth: widths * 0.02,
-                  borderWidth: i+1 == today.getDate() ? 2 : 1.5,
+                  borderWidth: i+1 == today.getDate() ? 1.5 : 1,
                   borderRadius: widths * 0.015,
                   margin:widths*0.008,
                 }}
                 
-                activeOpacity={0.5}
+               activeOpacity={0.5}
+
                onPress={()=>{
                 
                 SetCheck(!check)
@@ -102,16 +101,17 @@ export default function Calendar() {
               >
                 <Text
                   style={{
-                    color:'gray',
+                    color:'white',
                     marginBottom:heights * 0.005,
-                    fontSize:13
+                    fontSize:13,
+                    fontWeight:'bold'
                   }}
                 >{i+1}</Text>
   
                 <Text 
                   style={{
                     fontSize:10,
-                    color:'gray',
+                    color:'white',
                     fontWeight:'bold'
                   }}
                 >
@@ -249,7 +249,7 @@ export default function Calendar() {
                     borderRadius: widths * 0.02,
                     alignItems:'center',
                     justifyContent:'center',
-                    backgroundColor:'#222',
+                    backgroundColor:'black',
                     width:widths * 0.38,
                     height: heights * 0.08,
                 }}
@@ -269,7 +269,7 @@ export default function Calendar() {
                         style={{
                             color:'white',
                             fontSize:20,
-                            fontWeight:'bold'
+                            fontWeight:'bold',
                         }}
                     >저장하기</Text>
                 </TouchableOpacity>
