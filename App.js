@@ -12,14 +12,9 @@ import Routers from './pages/login_ok/Router';
 export default function App() {
   const Stack = createStackNavigator();
 
-  
-  
-
-
   return (
-  
 
-      <NavigationContainer>
+      <NavigationContainer >
         <Stack.Navigator initialRouteName="Routers" screenOptions={{headerShown:false}}>
           <Stack.Screen name="Login" component={Login} />
           <Stack.Screen name="Signup" component={Signup} />
@@ -27,7 +22,6 @@ export default function App() {
           <Stack.Screen name="Routers" component={Routers} />
         </Stack.Navigator>
       </NavigationContainer>
-  
    
   );
 }

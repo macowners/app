@@ -1,13 +1,14 @@
 import * as React from 'react';
-import { Text, View,Image,Dimensions } from 'react-native';
+import { Text, View,Image,Dimensions  } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import backPng from '../../assets/back.png';
-import backCalPng from '../../assets/cak_back2.png';
+
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
 import {useState,useEffect} from "react";
 import Calendar from './Calendar'
+import Timer from './Timer';
 
 const widths = Dimensions.get('window').width;
 const heights = Dimensions.get('window').height;
@@ -56,13 +57,7 @@ function HomeScreen() {
 
 
 
-function SettingsScreen2() {
-  return (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <Text>Settings!</Text>
-    </View>
-  );
-}
+
 
 function SettingsScreen3() {
   return (
@@ -83,8 +78,15 @@ export default function Router() {
   
       }}
         tabBarOptions={{
-          activeTintColor:'black',
+          
+          activeTintColor:'#004A6C',
           inactiveTintColor:'gray'
+          , "tabBarStyle": [
+            {
+              "display": "flex"
+            },
+            null
+          ]
         }}
       >
         <Tab.Screen name="공부량" component={HomeScreen} 
@@ -93,7 +95,8 @@ export default function Router() {
             <Ionicons
                 name="home"
                 style={{
-                  color: focused ? 'black' : 'gray'
+                  color: focused ? '#004A6C' : 'gray',
+                  fontSize: focused ? 15: 10,
                 }}  
                        
             />
@@ -105,13 +108,26 @@ export default function Router() {
             <Ionicons
                 name="today"
                 style={{
-                  color: focused ? 'black' : 'gray'
+                  color: focused ? '#004A6C' : 'gray',
+                  fontSize: focused ? 15: 10,
                 }}
             />
           )
         }}
         />
-        <Tab.Screen name="Settings2" component={SettingsScreen2} />
+        <Tab.Screen name="뽀모도로" component={Timer}
+        options={{
+          tabBarIcon:({focused})=>(
+            <Ionicons
+                name="hourglass-outline"
+                style={{
+                  color: focused ? '#004A6C' : 'gray',
+                  fontSize: focused ? 15: 10,
+                }}
+            />
+          )
+        }}
+         />
          <Tab.Screen name="Settings3" component={SettingsScreen3} />
       </Tab.Navigator>
     </NavigationContainer>
