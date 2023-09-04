@@ -41,6 +41,12 @@ export default function Time() {
   const [timeCheck,setTimeCheck] = React.useState(false)
   const [bottomSheet,setBottomSheet] = React.useState(true);
 
+  
+
+  const [timerSecond,setTimerSecond] = React.useState(0);
+  const [hour,setHour] = React.useState(0);
+  const [minate,setMinate] = React.useState(0);
+
   const musicArr = [rain,nature,tide,waterfall];
   const [musicNumber,setMusicNumber] = React.useState(4);
 
@@ -67,7 +73,9 @@ export default function Time() {
         },
         onPanResponderRelease: (event, gestureState) => {
           if(gestureState.moveY > heights * 0.5 ||  gestureState.vy > 1.5) {
+            
               Down()
+              setBottomSheet(false)
           }
           
         
@@ -80,7 +88,7 @@ export default function Time() {
     const Up = () => {
       setBottomSheet(!bottomSheet)
       Animated.timing(fadeAnim, {
-        toValue: heights / 2 - heights * 0.1,
+        toValue: heights / 2 - heights * 0.15,
         duration: 500,
         useNativeDriver: true,
       }).start();
@@ -186,7 +194,7 @@ export default function Time() {
 
               {
               name: 'Toronto',
-              population: 1000 - studyTime,
+              population: timerSecond * 60 - studyTime,
               color: '#f8fafc',
               legendFontColor: 'black',
               legendFontSize: 15,
@@ -481,11 +489,14 @@ export default function Time() {
                 <Text
                   style={{
                     fontWeight:'bold',
-                    marginRight:widths * 0.03,
+                    marginRight:widths * 0.05,
                     fontSize:40
                   }}
                 >
-                    00 시
+                    {
+                      hour > 9 ? hour : "0"+hour
+
+                    }시
                 </Text>
 
                 <View>
@@ -494,11 +505,13 @@ export default function Time() {
                       style={{
                         fontSize:widths * 0.06,
                         color: 'black',
-                        fontSize:40
+                        fontSize:50
                       }}
 
                       onPress={()=>{
-                        console.log("sdad");
+                        if(hour < 23){
+                          setHour(hour + 1)
+                        }
                       }}
                     >
 
@@ -510,8 +523,16 @@ export default function Time() {
                       style={{
                         fontSize:widths * 0.06,
                         color: 'black',
-                        fontSize:40
+                        fontSize:50
                       }}
+
+                      onPress={
+                        ()=>{
+                          if(hour != 0){
+                            setHour(hour - 1)
+                          }
+                        }
+                      }
                     >
 
                     </Ionicons>
@@ -523,18 +544,20 @@ export default function Time() {
               style={{
                 flexDirection:'row',
                 alignItems:'center',
-                marginTop:heights * 0.03,
-                marginBottom:heights * 0.04
+                marginTop:heights * 0.02,
+                marginBottom:heights * 0.05
               }}
             >
                 <Text
                   style={{
                     fontWeight:'bold',
-                    marginRight:widths * 0.03,
+                    marginRight:widths * 0.05,
                     fontSize:40
                   }}
                 >
-                    00 분
+                    {
+                       minate > 9 ? minate : "0"+minate
+                    }분
                 </Text>
 
                 <View>
@@ -543,11 +566,13 @@ export default function Time() {
                       style={{
                         fontSize:widths * 0.06,
                         color: 'black',
-                        fontSize:40
+                        fontSize:50
                       }}
 
                       onPress={()=>{
-                        console.log("sdad");
+                        if(minate < 59){
+                          setMinate(minate +1)
+                        }
                       }}
                     >
 
@@ -559,8 +584,16 @@ export default function Time() {
                       style={{
                         fontSize:widths * 0.06,
                         color: 'black',
-                        fontSize:40
+                        fontSize:50
                       }}
+
+                      onPress={
+                        ()=>{
+                          if(minate != 0){
+                            setMinate(minate - 1)
+                          }
+                        }
+                      }
                     >
 
                     </Ionicons>
@@ -590,17 +623,20 @@ export default function Time() {
                     }}
 
                     onPress={
-                      Down
+                     ()=>{
+                      Down()
+                     }
+                      
                     }
                 >
                     <Text
                       style={{
                         color:'#555',
-                        fontSize:17,
+                        fontSize:18,
                         fontWeight:'bold',
                        
                     }}
-                    >나가기</Text>
+                    >취소</Text>
                 </TouchableOpacity>
 
                 <TouchableOpacity
@@ -614,7 +650,8 @@ export default function Time() {
                 }}
                 onPress={
                     ()=>{
-                       console.log("sdad");
+                      setTimerSecond(hour * 3600+ minate * 60);
+                      Down();
                     }
                 }
                 >
@@ -626,7 +663,7 @@ export default function Time() {
                             fontSize:17,
                             fontWeight:'bold',
                         }}
-                    >저장하기</Text>
+                    >타이머 시작</Text>
                 </TouchableOpacity>
 
           </View>
