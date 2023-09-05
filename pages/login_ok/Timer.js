@@ -2,6 +2,7 @@ import { Audio } from 'expo-av';
 import { Text, View,Image,Dimensions,Platform,StyleSheet,Animated,Keyboard,PanResponder,TouchableOpacity } from 'react-native';
 import { TextInput } from 'react-native-gesture-handler';
 import * as React from 'react';
+
 import {
   LineChart,
   BarChart,
@@ -23,9 +24,6 @@ import backPng from '../../assets/Timer.png'
 const widths = Dimensions.get('window').width;
 const heights = Dimensions.get('window').height;
 
-
-
-
 function widthMedia(size){
   return size * widths
 }
@@ -38,12 +36,12 @@ function heighMedia(size){
 
 
 export default function Time() {
-  const [timeCheck,setTimeCheck] = React.useState(false)
+  const timeCheck = React.useRef(false);
   const [bottomSheet,setBottomSheet] = React.useState(true);
 
   
 
-  const [timerSecond,setTimerSecond] = React.useState(0);
+
   const [hour,setHour] = React.useState(0);
   const [minate,setMinate] = React.useState(0);
 
@@ -57,7 +55,7 @@ export default function Time() {
     const [studyTime,setStudyTime] =React.useState(0);
     const [musicName,setMusicName] =React.useState('tree');
     const studyRef = React.useRef(1);
-
+    const timerSecond = React.useRef(0);
     const fadeAnim = React.useRef(new Animated.Value(heights)).current;
 
 
@@ -83,8 +81,31 @@ export default function Time() {
       }),
     ).current;
 
-    
+    const TimerStart = () =>{
+      setInterval(() => {
+       
+          if(timeCheck.current){
+            setStudyTime((studyRef.current += 0.1))
+        
+            if(timerSecond.current == parseInt(studyRef.current)){
+              timeCheck.current =false;
+              timerSecond.current = 1;
+              studyRef.current = 0;
+              setStudyTime(0);
+              setHour(0)
+              setMinate(0)
+              alert('공부 시간이 끝났습니다.');
+            } 
+          }
 
+          
+        
+      }, 100);
+    }
+    
+    React.useEffect(()=>{
+      TimerStart()
+    },[]);
     const Up = () => {
       setBottomSheet(!bottomSheet)
       Animated.timing(fadeAnim, {
@@ -140,32 +161,28 @@ export default function Time() {
     }
   }
 
-
-  React.useEffect(()=>{
-
-    setInterval(() => {
-      if(!timeCheck){
-        return
-      }
-      else{
-        setStudyTime((studyRef.current += 0.1))
-      }
-      
-    }, 100);
-
-  },[]);
-
     return (
         <View
           style={{
             flex:1,
-            paddingTop: Platform.OS == 'ios' ? heights * 0.05 : heights * 0.025,
+            paddingTop: Platform.OS == 'ios' ? heights * 0.09 : heights * 0.025,
             backgroundColor:'white',
             alignItems:'center',
             
           }}
         >
-
+           <Text
+              style={{
+                fontSize:widths * 0.09,
+                marginBottom:heights * 0.01,
+                textAlign:'left',
+                fontWeight:'bold',
+                color:'#555'
+            
+              }}
+            >
+              뽀모도로
+            </Text>
      
           <TouchableOpacity activeOpacity={0.8} onPress={()=>{
 
@@ -176,34 +193,38 @@ export default function Time() {
             else{
               Down()
               
-            }
-
-          
+            }  
           }}>
 
-             
+                  {/* <Image source={backPng} style={{
+                    width:widths * 0.7,
+                    height:widths * 0.7,
+                    position:'absolute',
+                    
+                 
+                  }}/> */}
 
               <PieChart data={[
               {
               name: 'Seoul',
               population: studyTime,
-              color: '#FC5E5E',
+              color: '#4B89DC',
               legendFontColor: 'black',
               legendFontSize: 15,
               },
 
               {
-              name: 'Toronto',
-              population: timerSecond * 60 - studyTime,
-              color: '#f8fafc',
+              name: 'Toronto',  
+              population:timerSecond.current - studyRef.current,
+              color: '#f5f5f5',
               legendFontColor: 'black',
               legendFontSize: 15,
               },
               ]}
 
-              width={widths}
-              height={widths}
-              paddingLeft={widths * 0.25}
+              width={widths * 0.7}
+              height={widths * 0.7}
+              paddingLeft={widths * 0.7 / 4}
               chartConfig={{ backgroundColor: '#194ad1',
               backgroundGradientFrom: '#f74871',
               backgroundGradientTo: '#ffbc47',
@@ -223,34 +244,51 @@ export default function Time() {
              
               absolute
               />
-
+                
+                <View
+                
+                style={{
+                  width:widths * 0.5,
+                  height:widths * 0.5,
+                  position:'absolute',
+                  backgroundColor:'white',
+                  borderRadius:2000,
+                  top:widths * 0.7 / 2 - widths * 0.25,
+                  left: widths * 0.7 / 2 - widths * 0.25,
+                
+                }}>
+                  
+                </View>
               <Text
                 style={{
                   position:'absolute',
-                  left:widths / 2 - widths * 0.5 / 2,
-                  top: widths / 2 - widths * 0.05,
-                  fontSize:40,
+                  left:widths * 0.7 / 2 - widths * 0.25,
+                  top: widths * 0.7 / 2 - widths * 0.05,
+                  fontSize:30,
                   width:widths * 0.5,
                   textAlign:"center",
-                  fontWeight:'bold',
-                  color:'#555'
+              
+                  color:'#555',
                 }}
               >
-                00:00:00
+                타이머
+               
+                {/* {hour == 0 ? '00' : hour - parseInt(parseInt(minate - parseInt(parseInt(studyTime)  %60) / 60) / 60)}:{minate == 0 ? '00' :minate -  parseInt(parseInt(studyTime) / 60) -1 }:{minate == 0 ? '00' : 59 - parseInt(parseInt(studyTime)  %60)+1} */}
               </Text>
           </TouchableOpacity>
 
         <View
           style={{
-            width: widths * 0.8,
+            width: widths * 0.7,
 
           }}
         >
             <Text
               style={{
                 fontSize:widths * 0.05,
-                marginTop:heights * 0.01,
-                marginBottom:heights * 0.02
+                marginTop:heights * 0.04,
+                marginBottom:heights * 0.02,
+              
               }}
             >
               백색 소음
@@ -650,8 +688,12 @@ export default function Time() {
                 }}
                 onPress={
                     ()=>{
-                      setTimerSecond(hour * 3600+ minate * 60);
+                      timerSecond.current =(hour * 3600+ minate * 60);
+                      
+                      timeCheck.current = true;
+                      
                       Down();
+                    
                     }
                 }
                 >
@@ -691,7 +733,7 @@ export default function Time() {
       flexDirection:'row',
       alignItems:'center',
       justifyContent:'space-between',
-
+      
 
     }
   })

@@ -9,63 +9,13 @@ import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
 import {useState,useEffect} from "react";
 import Calendar from './Calendar'
 import Timer from './Timer';
+import Book from './Book'
+import Main from './main'
 
 const widths = Dimensions.get('window').width;
 const heights = Dimensions.get('window').height;
 
 
-
-
-function HomeScreen() {
- 
-
-
-
-
-  return (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' ,}}>
-      <Image source={backPng} style={{
-        width:widths,
-        height:heights,
-        position:'absolute',
-        
-      }}/>
-
-   
-      <Text
-          style={{
-            fontWeight:'bold',
-            color:'gray',
-            
-          }}
-        >
-        오늘의 총 공부시간
-      </Text>
-
-      <Text
-      style={{
-        fontSize:60,
-        fontWeight:'bold',
-        color:'#222'
-      }}>
-        00:00:00
-
-      </Text>
-    </View>
-  );
-}
-
-
-
-
-
-function SettingsScreen3() {
-  return (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <Text>Settings!</Text>
-    </View>
-  );
-}
 
 
 const Tab = createBottomTabNavigator();
@@ -89,11 +39,11 @@ export default function Router() {
           ]
         }}
       >
-        <Tab.Screen name="공부량" component={HomeScreen} 
+        <Tab.Screen name="그룹" component={Main} 
         options={{
           tabBarIcon:({focused})=>(
             <Ionicons
-                name="home"
+                name="people"
                 style={{
                   color: focused ? '#004A6C' : 'gray',
                   fontSize: focused ? 15: 10,
@@ -128,7 +78,7 @@ export default function Router() {
           )
         }}
          />
-         <Tab.Screen name="Settings3" component={SettingsScreen3} />
+         <Tab.Screen name="Settings3" component={Book} />
       </Tab.Navigator>
     </NavigationContainer>
   );
