@@ -1,8 +1,8 @@
 import * as React from 'react';
-import { Text, View,Image,Dimensions,Keyboard,Platform ,KeyboardAvoidingView,Animated } from 'react-native';
+import { Text, View,Image,Dimensions,Keyboard,Platform ,KeyboardAvoidingView,Animated ,TouchableOpacity} from 'react-native';
 
 import backCalPng from '../../assets/cak_back2.png';
-import { TextInput, TouchableOpacity } from 'react-native-gesture-handler';
+import { TextInput } from 'react-native-gesture-handler';
 import {useState,useEffect} from "react";
 
 const widths = Dimensions.get('window').width;
@@ -184,7 +184,7 @@ export default function Calendar() {
               >
                 <Text
                   style={{
-                    color: i-1 == today.getDate() ?  'gold' : new Date(`${today.getFullYear()}-${today.getMonth()+1}-${i-todayDate+1}`).getDay() == 0 ? '#FC5E5E' : new Date(`${today.getFullYear()}-${today.getMonth()+1}-${i-todayDate+1}`).getDay() == 6 ? '#0092F7' : 'white',
+                    color: (i-1-today.getDay()) == today.getDate() ?  'gold' : new Date(`${today.getFullYear()}-${today.getMonth()+1}-${i-todayDate+1}`).getDay() == 0 ? '#FC5E5E' : new Date(`${today.getFullYear()}-${today.getMonth()+1}-${i-todayDate+1}`).getDay() == 6 ? '#0092F7' : 'white',
                     marginBottom:heights * 0.005,
                     fontSize:13,
                     textAlign:'center',

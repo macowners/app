@@ -1,9 +1,38 @@
 
 import { View, Text ,StyleSheet,Dimensions,TextInput} from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
+import { useEffect, useRef } from "react";
 
 const widths = Dimensions.get('window').width;
 const heights = Dimensions.get('window').height;
+
+let nameValue = ""
+let eamilValue = ""
+let passwordValue = ""
+
+
+function Post(){
+  
+ 
+    fetch('https://127.0.0.1:3000/api/sign/up',{
+      method:'POST',
+      headers:{
+          Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body:JSON.stringify({
+          name:nameValue,
+          email:eamilValue,
+          password:passwordValue  
+      })
+    })
+    .then((res) => res.json())
+    .then((data) =>{
+      console.log(data);
+    })
+    .catch(error => {console.log(error)})
+
+}
 
 function widthMedia(size){
   return size * widths
@@ -15,7 +44,11 @@ function heighMedia(size){
 
 
 
+
+
 function Signup({navigation}) {
+
+  
   return (
     <View
     style={{
@@ -28,21 +61,20 @@ function Signup({navigation}) {
     }}
     >
      <TextInput
+       onChangeText={newText => nameValue = newText}
       style={styles.textInput}
       placeholder="이름 입력"
+      
      />
      
      <TextInput
+      onChangeText={newText => eamilValue = newText}
       style={styles.textInput}
-      placeholder="전화번호 입력"
-     />
-
-     <TextInput
-     style={styles.textInput}
-      placeholder="아이디 입력"
+      placeholder="이메일 입력"
      />
 
     <TextInput
+     onChangeText={newText => passwordValue = newText}
      style={styles.textInput}
       placeholder="비밀번호 입력"
      />
@@ -51,17 +83,15 @@ function Signup({navigation}) {
         style={{
           width:widthMedia(0.9),
           height:heighMedia(0.15),
-      
-     
           backgroundColor:'#FC7611',
           alignItems:'center',
           justifyContent:'center',
           padding:10,
           borderRadius:10,
-          marginTop:heighMedia(0.5)
+          marginTop:heighMedia(0.8)
         }}
         onPress={
-          ()=>navigation.pop()
+          Post
         }>
         <Text style={{
           color:'white',

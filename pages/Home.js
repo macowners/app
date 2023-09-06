@@ -2,8 +2,8 @@
 import { StyleSheet,Image,TouchableOpacity, Text, View , ScrollView, TextInput,Dimensions, Button } from 'react-native';
 import bookImage from '../assets/book.png'
 import "react-native-gesture-handler";
-import React from "react";
-
+import React, { useEffect } from "react";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 // import login from "./login";
 // import Signup from "./signup";
 
@@ -11,6 +11,22 @@ export default function Home({navigation}) {
 
   const widths = Dimensions.get('window').width;
   const heights = Dimensions.get('window').height;
+
+  check = async () => {
+    try {
+      const value = await AsyncStorage.getItem('login');
+      if (value !== null) {
+        // We have data!!
+        console.log(value);
+        navigation.push("Routers")
+      }
+    } catch (error) {
+      // Error retrieving data
+    }
+  };
+
+  check();
+
 
   return (
     <View  style={{

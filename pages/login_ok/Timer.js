@@ -286,7 +286,7 @@ export default function Time() {
             <Text
               style={{
                 fontSize:widths * 0.05,
-                marginTop:heights * 0.04,
+                marginTop:heights * 0.02,
                 marginBottom:heights * 0.02,
               
               }}

@@ -1,9 +1,23 @@
 import React from "react";
 import { View, Text,Button,Dimensions,TextInput,StyleSheet } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 
 const widths = Dimensions.get('window').width;
 const heights = Dimensions.get('window').height;
+
+const setItem = async (key, value) => {
+  try {
+    await AsyncStorage.setItem(key, value);
+    console.log(`setItem... ${key} : ${value}`);
+  } catch (e) {
+    throw e;
+  }
+};
+
+let eamilValue = ""
+let passwordValue = ""
 
 function widthMedia(size){
   return size * widths
@@ -14,7 +28,40 @@ function heighMedia(size){
 }
 
 function Login({navigation}) {
- 
+  
+  function Post(){
+
+    fetch('https://127.0.0.1:3000/api/sign/in',{
+      method:'POST',
+      headers:{
+          Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body:JSON.stringify({
+          email:eamilValue,
+          password:passwordValue  
+      })
+    })
+    .then((res) => res.json())
+    .then((data) =>{
+      console.log(data);
+   
+        if(data.status == 200){
+          alert("로그인에 성공하였습니다.");
+          setItem("login","ok")
+          navigation.push('Routers')
+        }
+        else{
+          alert("로그인에 실패하였습니다.");
+        }
+
+  
+    })
+    .catch(error => {console.log(error)})
+  
+  }
+
+  
   
   return (
     <View
@@ -28,11 +75,13 @@ function Login({navigation}) {
       }}
       >
        <TextInput
+       onChangeText={newText => eamilValue = newText}
         style={styles.textInput}
-        placeholder="아이디 입력"
+        placeholder="이메일 입력"
        />
        
        <TextInput
+       onChangeText={newText => passwordValue = newText}
        style={styles.textInput}
         placeholder="비밀번호 입력"
        />
@@ -51,7 +100,10 @@ function Login({navigation}) {
           marginTop:heighMedia(0.9)
         }}
         onPress={
-          ()=>navigation.pop()
+          ()=>{
+            setItem("login","ok")
+            navigation.push('Routers')
+          }
         }>
         <Text style={{
           color:'white',
