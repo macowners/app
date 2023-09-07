@@ -10,7 +10,7 @@ import {useState,useEffect} from "react";
 import Calendar from './Calendar'
 import Timer from './Timer';
 import Book from './Book'
-import Main from './main'
+import Main from './index'
 
 const widths = Dimensions.get('window').width;
 const heights = Dimensions.get('window').height;
@@ -39,7 +39,7 @@ export default function Router() {
           ]
         }}
       >
-        <Tab.Screen name="그룹" component={Main} 
+        <Tab.Screen name="메인" component={Main} 
         options={{
           tabBarIcon:({focused})=>(
             <Ionicons

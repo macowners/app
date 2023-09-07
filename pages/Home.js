@@ -12,20 +12,20 @@ export default function Home({navigation}) {
   const widths = Dimensions.get('window').width;
   const heights = Dimensions.get('window').height;
 
-  check = async () => {
-    try {
-      const value = await AsyncStorage.getItem('login');
-      if (value !== null) {
-        // We have data!!
-        console.log(value);
-        navigation.push("Routers")
-      }
-    } catch (error) {
-      // Error retrieving data
-    }
-  };
+    // check = async () => {
+    //   try {
+    //     const value = await AsyncStorage.getItem('login');
+    //     if (value !== null) {
+    //       // We have data!!
+    //       console.log(value);
+    //       navigation.push("Routers")
+    //     }
+    //   } catch (error) {
+    //     // Error retrieving data
+    //   }
+    // };
 
-  check();
+    // check();
 
 
   return (

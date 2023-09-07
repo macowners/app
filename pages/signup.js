@@ -14,7 +14,7 @@ let passwordValue = ""
 function Post(){
   
  
-    fetch('https://127.0.0.1:3000/api/sign/up',{
+    fetch('http://13.124.237.156:3000/api/sign/up',{
       method:'POST',
       headers:{
           Accept: 'application/json',

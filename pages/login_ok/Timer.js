@@ -165,7 +165,7 @@ export default function Time() {
         <View
           style={{
             flex:1,
-            paddingTop: Platform.OS == 'ios' ? heights * 0.09 : heights * 0.025,
+            paddingTop: Platform.OS == 'ios' ? heights * 0.09 : heights * 0.06,
             backgroundColor:'white',
             alignItems:'center',
             

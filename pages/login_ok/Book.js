@@ -17,11 +17,15 @@ export default function App() {
 
       <View style={styles.sels}>
         <TouchableOpacity style={!type ? styles.lc : styles.l} onPress={() => setType(0)}>
-          <Button color={!type ? 'white' : '#009BFF'} onPress={() => setType(0)} title='문제집' />
+          <Text style={{color:!type ? "white" : "#009BFF"}}>
+          문제집
+          </Text>
         </TouchableOpacity>
 
         <TouchableOpacity style={type ? styles.rc : styles.r} onPress={() => setType(1)}>
-          <Button color={type ? 'white' : '#009BFF'} onPress={() => setType(1)} title='강의' />
+        <Text style={{color:type ? "white" : "#009BFF"}}>
+          강의
+          </Text>
         </TouchableOpacity>
       </View>
 
@@ -35,8 +39,11 @@ export default function App() {
         <TextInput placeholder='입력해주세요' style={styles.field} value={date?.toString()} onChangeText={text => setDate(parseInt(text))} />
       </View>
 
-      <TouchableOpacity style={styles.btn} onPress={() => setType(0)}>
-        <Button color='white' onPress={Submit} title='다음' />
+      <TouchableOpacity style={styles.btn} onPress={() => {setType(0);
+      Submit();}}>
+        <Text style={{
+          color:"white",
+        }}>다음</Text>
       </TouchableOpacity>
 
       <StatusBar style="auto" />

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Text, View,Image,Dimensions,Keyboard,Platform ,KeyboardAvoidingView,Animated ,TouchableOpacity} from 'react-native';
 
-import backCalPng from '../../assets/cak_back2.png';
+
 import { TextInput } from 'react-native-gesture-handler';
 import {useState,useEffect} from "react";
 
@@ -58,7 +58,7 @@ export default function Calendar() {
       <View style={{
         flex: 1,
         alignItems:'center',
-        paddingTop: Platform.OS == 'ios' ? heights * 0.07 : heights * 0.03,
+        paddingTop: Platform.OS == 'ios' ? heights * 0.07 : heights * 0.06,
         backgroundColor:'black'
 
       }}>
@@ -166,7 +166,7 @@ export default function Calendar() {
                 style={{
 
                   width:(widths - widths * 0.05 ) / 7,
-                  height:widths / 4,
+                  height: Platform.OS == "ios" ? widths / 4 : widths / 4.5,
                   padding:widths * 0.015,
                   borderColor:  i-1 == today.getDate() ? 'gold' : !(i-todayDate+2 >= 1 && i-todayDate+1 < 31) ? 'white': new Date(`${today.getFullYear()}-${today.getMonth()+1}-${i-todayDate+1}`).getDay() == 0 ? '#FC5E5E' : new Date(`${today.getFullYear()}-${today.getMonth()+1}-${i-todayDate+1}`).getDay() == 6 ? '#0092F7' : 'white',
                   borderCollapse:'collapse',

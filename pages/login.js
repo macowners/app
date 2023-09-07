@@ -31,13 +31,14 @@ function Login({navigation}) {
   
   function Post(){
 
-    fetch('https://127.0.0.1:3000/api/sign/in',{
+    fetch('http://13.124.237.156:3000/api/sign/in',{
       method:'POST',
       headers:{
           Accept: 'application/json',
         'Content-Type': 'application/json',
       },
       body:JSON.stringify({
+         
           email:eamilValue,
           password:passwordValue  
       })
@@ -50,6 +51,7 @@ function Login({navigation}) {
           alert("로그인에 성공하였습니다.");
           setItem("login","ok")
           navigation.push('Routers')
+          console.log(data);
         }
         else{
           alert("로그인에 실패하였습니다.");
@@ -102,7 +104,7 @@ function Login({navigation}) {
         onPress={
           ()=>{
             setItem("login","ok")
-            navigation.push('Routers')
+            Post()
           }
         }>
         <Text style={{
